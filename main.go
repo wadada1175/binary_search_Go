@@ -5,10 +5,6 @@ import (
 	"time"
 )
 
-// array[0..n-1]からtargetを探す
-// targetの位置をpとして
-// targetがないとき、p=-1
-// targetがあるとき、0<=p<=n-1 && target=array[p]
 func main() {
 	data := []int{
 		101, 103, 107, 109, 113, 127, 131, 137, 139, 149,
@@ -18,7 +14,7 @@ func main() {
 		317, 331, 337, 347, 349, 353, 359, 367, 373, 379,
 		383, 389, 397, 401, 409, 419, 421, 431, 433, 439,
 	}
-	target := 433
+	target := 433 //探索する値(固定)
 
 	start := time.Now() //時間計測開始
 
@@ -32,17 +28,17 @@ func main() {
 func solve(data []int, target int) int {
 
 	arrayLen := len(data)
-	low := 0
-	high := arrayLen - 1
-	var mid int
+	low := 0             //配列の左端
+	high := arrayLen - 1 //配列の右端
+	var mid int          //配列の中央
 	for {
 		if high < low {
 			return -1
 		}
-		mid = (low + high) / 2
+		mid = (low + high) / 2 //配列の中央
 
 		if data[mid] == target {
-			return mid
+			return mid //ループを抜ける
 		}
 
 		if data[mid] < target {
