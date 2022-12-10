@@ -16,29 +16,23 @@ func main() {
 	}
 	target := 433 //探索する値(固定)
 
+	datalen := len(data)
+	low := 0            //配列の左端
+	high := datalen - 1 //配列の右端
 	start := time.Now() //時間計測開始
-
-	p := solve(data, target)
-
-	fmt.Printf("値 %d は配列の %d 番目に見つかりました。", target, p)
-	t := time.Since(start)
-	fmt.Println("\n処理時間は", t)
-}
-
-func solve(data []int, target int) int {
-
-	arrayLen := len(data)
-	low := 0             //配列の左端
-	high := arrayLen - 1 //配列の右端
-	var mid int          //配列の中央
+	var mid int         //配列の中央
 	for {
 		if high < low {
-			return -1
+
 		}
 		mid = (low + high) / 2 //配列の中央
 
 		if data[mid] == target {
-			return mid //ループを抜ける
+			end := time.Now() //時間計測終了
+			fmt.Printf("値 %d は配列の %d 番目に見つかりました。", target, mid)
+			t := end.Sub(start).Seconds()
+			fmt.Printf("\n処理時間は%.9fs", t)
+			break
 		}
 
 		if data[mid] < target {
@@ -47,5 +41,4 @@ func solve(data []int, target int) int {
 			high = mid - 1
 		}
 	}
-
 }
