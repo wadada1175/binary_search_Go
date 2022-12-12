@@ -14,31 +14,39 @@ func main() {
 		317, 331, 337, 347, 349, 353, 359, 367, 373, 379,
 		383, 389, 397, 401, 409, 419, 421, 431, 433, 439,
 	}
-	target := 433 //探索する値(固定)
 
-	datalen := len(data)
-	low := 0            //配列の左端
-	high := datalen - 1 //配列の右端
-	start := time.Now() //時間計測開始
-	var mid int         //配列の中央
-	for {
-		if high < low {
+	var sum_time float64 = 0
+	var SIZE float64 = 60
+	for i := 0; i < len(data); i++ {
+		target := data[i] //探索する値(固定)
 
-		}
-		mid = (low + high) / 2 //配列の中央
+		datalen := len(data)
+		low := 0            //配列の左端
+		high := datalen - 1 //配列の右端
+		start := time.Now() //時間計測開始
+		var mid int         //配列の中央
+		for {
+			if high < low {
 
-		if data[mid] == target {
-			end := time.Now() //時間計測終了
-			fmt.Printf("値 %d は配列の %d 番目に見つかりました。", target, mid)
-			t := end.Sub(start).Seconds()
-			fmt.Printf("\n処理時間は%.9fs", t)
-			break
-		}
+			}
+			mid = (low + high) / 2 //配列の中央
 
-		if data[mid] < target {
-			low = mid + 1
-		} else {
-			high = mid - 1
+			if data[mid] == target {
+				end := time.Now() //時間計測終了
+				fmt.Printf("値 %d は配列の %d 番目に見つかりました。\n", target, mid)
+				t := end.Sub(start).Seconds()
+				fmt.Printf("処理時間は%.9fs\n", t)
+				sum_time += t
+				break
+			}
+
+			if data[mid] < target {
+				low = mid + 1
+			} else {
+				high = mid - 1
+			}
 		}
 	}
+	ave_time := sum_time / SIZE
+	fmt.Printf("平均処理時間は%.9fs", ave_time)
 }
